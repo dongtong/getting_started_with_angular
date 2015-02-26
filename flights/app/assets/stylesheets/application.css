@@ -1,0 +1,6 @@
+/*
+ *require_tree .
+ *= require libs/bootstrap.min
+ *= require libs/bootstrap-theme.min
+ *= require_self
+ */
