@@ -1,8 +1,54 @@
 <div class="container" ng-controller="flightApp.FirstController">
 	<h1>Airports</h1>
-	<ul ng-repeat="airport in airports">
-	  <li>{{airport.code}}</li>
-	  <li>{{airport.city}}</li>
-	  <li>{{airport.name}}</li>
+	<ul>
+		<li ng-repeat="airport in airports">{{airport.code}} - {{airport.city | uppercase}}</li>
 	</ul>
+	<p>{{ 10000 | currency}}</p>
+	<div>
+		<p>{{ today | date:'medium'}}</p>
+		<p>{{ today | date:'short' }}</p>
+		<p>{{ today | date:'fullDate' }}</p>
+		<p>{{ today | date:'longDate' }}</p>
+		<p>{{ today | date:'mediumDate' }}</p>
+		<p>{{ today | date:'shortDate' }}</p>
+		<p>{{ today | date:'mediumTime' }}</p>
+		<p>{{ today | date:'shortTime' }}</p>
+		<p>{{ today | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
+	</div>
+	<p>{{ ['I','Likes','To','Eat','Pizza'] | filter:'e' }}</p>
+	<p>{{ ['I','Likes','To','Eat','Pizza'] | filter: '!e'}}</p>
+	<p>{{ [{
+         'name': 'Foobar',
+         'City': 'San Francisco',
+         'favorite food': 'Pizza'
+         },{
+         'name': 'Nate',
+         'City': 'San Francisco',
+         'favorite food': 'indian food'
+         }] | filter:{'favorite food': 'Pizza'} }}</p>
+  <p>{{ ['I','Likes','to','Eat','Pizza'] | filter: isCapitalized}}</p> 
+  <p>{{ {'name': 'foobar', 'age': 30} | json}}</p>  
+  <p>{{ "San Francisco is very cloudy" | lowercase }}</p>   
+  <p>{{ "San Francisco is very cloudy" | uppercase }}</p>
+  <p>{{ 1.234567 | number:2 }}</p>
+  <p>{{ [{
+         'name': 'Foobar',
+         'status': 'awake'
+         },{
+         'name': 'Q',
+         'status': 'sleeping'
+         },{
+         'name': 'Nate',
+         'status': 'awake'
+         }] | orderBy:'name' }}</p>
+  <p>{{ [{
+         'name': 'Foobar',
+         'status': 'awake'
+         },{
+         'name': 'Q',
+         'status': 'sleeping'
+         },{
+         'name': 'Nate',
+         'status': 'awake'
+         }] | orderBy:'name':true }}</p>
 </div>
