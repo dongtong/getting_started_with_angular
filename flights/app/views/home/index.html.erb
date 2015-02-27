@@ -1,2 +1,8 @@
-<h1>Welcome {{name}}!</h1>
-<input type="text" placeholder="请输入你的姓名" ng-model="name" />
+<div class="container" ng-controller="flightApp.FirstController">
+	<h1>Airports</h1>
+	<ul ng-repeat="airport in airports">
+	  <li>{{airport.code}}</li>
+	  <li>{{airport.city}}</li>
+	  <li>{{airport.name}}</li>
+	</ul>
+</div>
