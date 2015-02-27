@@ -121,4 +121,61 @@ Scope能做什么？
 
 ## Filter过滤器
 
-可以在视图中使用的函数,用来进行格式化
+过滤器用来格式化需要展示给用户的数据。AngularJS有很多实用的内置过滤器,同时也提 供了方便的途径可以自己创建过滤器。
+
+- 在HTML中的模板绑定符号{{ }}内通过|符号来调用过滤器
+
+	  {{ name | uppercase }}
+
+- 在JavaScript代码中可以通过$filter来调用过滤器
+
+	  app.controller("UserController", ['$scope', '$filter', function($scope, $filter){
+	    $scope.name = $filter('lowercase')('FOOBAR');  
+	  }])
+	  
+- 以HTML的形式使用过滤器时,如果需要传递参数给过滤器,只要在过滤器名字后面加冒号 即可
+
+	  {{3.1415926 | number:2}}
+	  
+- 可以用|符号作为分割符来同时使用多个过滤器
+
+内建过滤器
+
+- currency: 将一个数值格式化为货币格式。 currecy过滤器允许我们自己设置货币符号。默认情况下会采用客户端所处区域的货币符号, 但是也可以自定义货币符号
+
+	    {{ 10000 | currency}}
+
+- date: 日期格式化, 如果没有指定使用任何格式,默认会采用mediumDate格式
+
+		{{ today | date:'medium'}}
+		{{ today | date:'short' }}
+		{{ today | date:'fullDate' }}
+		{{ today | date:'longDate' }}
+		{{ today | date:'mediumDate' }}
+		{{ today | date:'shortDate' }}
+		{{ today | date:'mediumTime' }}
+		{{ today | date:'shortTime' }}
+		{{ today | date: 'yyyy-MM-dd HH:mm:ss'}} 自定义格式 2015-08-16 20:00:00
+		
+- filter: 从给定数组中选择一个子集,并将其生成一个新数组返回。第一个参数可以是字符串、对象或是一个用来从数组中选择元素的函数。filter过滤器传入第二个参数,用来指定预期值同实际值进行比较的方式: true(对两个值进行严格比较), false(进行区分大小写的子字符串比较), 函数(运行这个函数,如果返回真值就接受这个元素)
+
+		{{ ['I','Likes','To','Eat','Pizza'] | filter:'e' }} //返回包含e字符的字符串
+		{{ ['I','Likes','To','Eat','Pizza'] | filter: '!e'}}//返回不包含e字符的字符串
+		{{ [{         'name': 'Foobar',         'City': 'San Francisco',         'favorite food': 'Pizza'         },{         'name': 'Nate',         'City': 'San Francisco',         'favorite food': 'indian food'         }] | filter:{'favorite food': 'Pizza'} }}
+        {{ ['I','Likes','To','Eat','Pizza'] | filter: isCapitalized}} //自定义函数
+        $scope.isCapitalized = function(str){
+		  return str[0] == str[0].toUpperCase();        }
+        
+- json: 将一个JSON或JavaScript对象转换成字符串,经常用来调试。
+		{{ {'name': 'foobar', 'age': 30} | json}}
+- limitTo: 传入的参数生成一个新的数组或字符串,新的数组或字符串的长度取决于传入的参数,通过传入参数的正负值来控制从前面还是从后面开始截取,如果传入的长度值大于被操作数组或字符串的长度,那么整个数组或字符串都会被返回
+		{{ San Francisco is very cloudy | limitTo:3 }}
+- lowercase: 将字符串转为小写
+		{{ "San Francisco is very cloudy" | lowercase }}
+－ uppercase: 将字符串转换为大写形式
+		{{ "San Francisco is very cloudy" | uppercase }}		- number: 将数字格式化成文本。它的第二个参数是可选的,用来控制小数点后截取的位数。
+		{{ 1.234567 | number:2 }}
+- orderBy: 用表达式对指定的数组进行排序。 可以接受两个参数,第一个是必需的,第二个是可选的。第一个参数是用来确定数组排序方向。当第一个参数是函数时,该函数会被当作待排序对象的getter方法； 对这个字符串进行解析的结果将决定数组元素的排序方向。我们可以传入+或-来强制进行升序或降序排列；数组元素作为谓词。对于与表达式结果并不严格相等的每个元素,则使用第一个谓词。第二个参数用来控制排序的方向(是否逆向)
+		{{ [{         'name': 'Foobar',         'status': 'awake'         },{         'name': 'Q',         'status': 'sleeping'         },{         'name': 'Nate',         'status': 'awake'         }] | orderBy:'name' }}
+         
+         {{ [{         'name': 'Foobar',         'status': 'awake'         },{         'name': 'Q',         'status': 'sleeping'         },{         'name': 'Nate',         'status': 'awake'         }] | orderBy:'name':true }} //反转
