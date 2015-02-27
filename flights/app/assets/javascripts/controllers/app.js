@@ -12,25 +12,34 @@ flightApp.controller('flightApp.FirstController', ['$scope', '$interval', functi
   $interval(function(){
     $scope.today = Date.now();
   },1000);
-  $scope.airports = [{
+  $scope.airports = {
+  	"PDX": {
       "code": "PDX",
       "name": "Portland International Airport",
       "city": "Portland",
       "destinations": ["LAX","SFO"]
-    },{
+    },
+    "STL": {
       "code": "STL",
       "name": "Lambert-St. Louis International Airport",
       "city": "St. Louis",
       "destinations": ["LAX","MKE"]
-    },{
+    },
+    "MCI": {
       "code": "MCI",
       "name": "Kansas City International Airport",
       "city": "Kansas City",
       "destinations": ["LAX","DFW"]
-  }];
+    }
+  };
 
   $scope.isCapitalized = function(str){
 		return str[0] == str[0].toUpperCase();
+  }
+
+  $scope.currentAirport = $scope.airports["PDX"];
+  $scope.setAirport = function(code){
+  	$scope.currentAirport = $scope.airports[code];
   }
 
 }]);

@@ -44,6 +44,8 @@ ng-app表明html DOM接下来由angular接管。{{name}}是angular的自省表�
 
 ##初始化项目
 
+> 1_project_skeleton分支
+
 这里使用CSS框架Bootstrap, 下载bootstrap-min.css, bootstrap-theme-min.css, 和bootstrap.min.js。将这些第三方库以及框架放入libs目录下，形成的目录如下
 
 ![skeleton](images/1.png)
@@ -78,6 +80,8 @@ ng-app表明html DOM接下来由angular接管。{{name}}是angular的自省表�
 ![foobar](images/2.png)
 
 ##Scope数据
+
+> 2_scope_data分支
 
 Angular管辖的每一个Element都有它们自己的scope, 一旦element绑定到一个controller,那么这个controller的$scope对象将会注入到这个element中,在element上下文中可以访问$scope中的数据。
 
@@ -119,7 +123,29 @@ Scope能做什么？
 - 给表达式提供运算时所需的执行环境
 
 
+##控制Scope
+
+> 4_control_scope 分支
+
+可以给$scope 添加功能
+
+	 $scope.currentAirport = null;
+     $scope.setAirport = function(code){
+  	   $scope.currentAirport = $scope.airports[code];
+     }
+     
+     <li ng-repeat="airport in airports"><a href="" ng-click="setAirport(airport.code)">{{airport.code}} - {{airport.city}}</a></li>
+     
+ng-click和onClick区别是：ng-click是在$scope中查找，onClick是在全局查找
+
+ng-show指令基于提供给ngShow的表达式来显示活着隐藏给定的HTML元素。
+
+	<p ng-show="currentAirport">Current Airport: {{currentAirport}}</p>
+
+如果currentAirport不为空则显示。
+
 ## Filter过滤器
+> 3_filter分支
 
 过滤器用来格式化需要展示给用户的数据。AngularJS有很多实用的内置过滤器,同时也提 供了方便的途径可以自己创建过滤器。
 
